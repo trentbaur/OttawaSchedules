@@ -1,9 +1,5 @@
 months <- c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
 
-
-val_lat <- 45.378163
-val_long <- -75.752130
-
 LoadSkating <- function() {
 
       library('RCurl')
@@ -18,7 +14,7 @@ LoadSkating <- function() {
       
       rootNode <- xmlRoot(doc)
       
-      master_results <- data.frame()
+      master_skating <- data.frame()
       
       startwith <- c(0)
       
@@ -79,7 +75,7 @@ LoadSkating <- function() {
             }))
             
             #     Copy page of results into master data frame
-            master_results <- rbind(master_results, result_page)      
+            master_skating <- rbind(master_skating, result_page)      
             
             
       
@@ -96,13 +92,114 @@ LoadSkating <- function() {
       
       }
       
-      colnames(master_results) <- c('ID', 'Arena', 'Day', 'StartDate', 'EndDate', 'StartTime', 'EndTime', 'SessionType', 'Comments', 'LocationMap')
+      colnames(master_skating) <- c('ID', 'Arena', 'Day', 'StartDate', 'EndDate', 'StartTime', 'EndTime', 'SessionType', 'Comments', 'LocationMap')
       
-      master_results
+      master_skating
 }
 
 
-FormatMaster <- function(master_results) {
+LoadSwimming <- function() {
+      
+      library('RCurl')
+      library('XML')
+      library('lubridate')
+      
+      fileUrl <- "http://app06.ottawa.ca/cgi-bin/schedulesearch/searchschedule.pl?stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fpublic_swimming_results_en.xsl&notfound_stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fresults_notfound_en.xsl&notfound_stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fresults_notfound_en.xsl&sq_event=Swimming&sq_lang=en&sort=location+asc%2Cstart_date+asc%2CdayNo+asc%2Cstart_time+asc%2Csession_type+asc&ret=http%3A%2F%2Fottawa.ca%2Fen%2Fnode%2F268957&sq_location=&sq_session_type=&sq_keywords1=&"
+                  #http://app06.ottawa.ca/cgi-bin/schedulesearch/searchschedule.pl?stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fpublic_swimming_results_en.xsl&sq_event=Swimming&sq_lang=en&sort=location+asc%2Cstart_date+asc%2CdayNo+asc%2Cstart_time+asc%2Csession_type+asc&ret=http%3A%2F%2Fottawa.ca%2Fen%2Fnode%2F268957&sq_location=&sq_session_type=&sq_keywords1=&
+            
+      nextFileUrl <- "http://app06.ottawa.ca/cgi-bin/schedulesearch/searchschedule.pl?stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fpublic_swimming_results_en.xsl;notfound_stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fresults_notfound_en.xsl;notfound_stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fresults_notfound_en.xsl;sq_event=Swimming;sq_lang=en;sort=location%20asc%2Cstart_date%20asc%2CdayNo%20asc%2Cstart_time%20asc%2Csession_type%20asc;ret=http%3A%2F%2Fottawa.ca%2Fen%2Fnode%2F268957;sq_location=;sq_session_type=;sq_keywords1=;start="
+      
+      doc <- xmlTreeParse(fileUrl, useInternal = TRUE)
+      #      doc <- xmlTreeParse(paste(nextFileUrl, "125", sep=""), useInternal = TRUE)
+      
+      rootNode <- xmlRoot(doc)
+      
+      master_swimming <- data.frame()
+      
+      startwith <- c(0)
+      
+      #     Determine number of results
+      numFound <- as.integer(xpathSApply(rootNode, '//result', xmlGetAttr, "numFound"))
+      
+      while(startwith < numFound) {
+            
+            result_page <- do.call(rbind, xpathApply(doc, "/response/result/doc", function(node) {
+                  
+                  xp <- './str[@name="id"]'
+                  id <- xpathSApply(node, xp, xmlValue)
+                  if (is.null(id)) id <- NA
+                  
+                  xp <- './arr[@name="location"]'
+                  location <- xpathSApply(node, xp, xmlValue)
+                  if (is.null(location)) location <- NA
+                  
+                  xp <- './str[@name="location_map"]'
+                  location_map <- xpathSApply(node, xp, xmlValue)
+                  if (is.null(location_map)) location_map <- NA
+                  
+                  xp <- './arr[@name="day"]'
+                  day <- xpathSApply(node, xp, xmlValue)
+                  if (is.null(day)) day <- NA
+                  
+                  xp <- './date[@name="start_date"]'
+                  start_date <- xpathSApply(node, xp, xmlValue)
+                  if (is.null(start_date)) start_date <- NA
+                  
+                  xp <- './date[@name="end_date"]'
+                  end_date <- xpathSApply(node, xp, xmlValue)
+                  if (is.null(end_date)) end_date <- NA
+                  
+                  xp <- './str[@name="start_time"]'
+                  starttime <- xpathSApply(node, xp, xmlValue)
+                  if (is.null(starttime)) starttime <- NA
+                  
+                  xp <- './str[@name="end_time"]'
+                  endtime <- xpathSApply(node, xp, xmlValue)
+                  if (is.null(endtime)) endtime <- NA
+                  
+                  xp <- './arr[@name="session_type"]'
+                  session_type <- xpathSApply(node, xp, xmlValue)
+                  if (is.null(session_type)) session_type <- NA
+                  
+                  #     To handle missing comments, append an 'x' on the end
+                  #     of the retrieved value.
+                  #     This was the only way I could find that worked
+                  xp <- './arr[@name="comments"]'
+                  comments <- xpathSApply(node, xp, xmlValue)
+                  comments <- paste(comments, 'x')
+                  
+                  xp <- './arr[@name="comments_special"]'
+                  comments_special <- xpathSApply(node, xp, xmlValue)
+                  comments_special <- paste(comments_special, 'x')
+                  
+                  #     Join everything together into a single data.frame
+                  data.frame(id, location, day, start_date, end_date, starttime, endtime, session_type, comments, comments_special, location_map, stringsAsFactors = FALSE)
+                  
+            }))
+            
+            #     Copy page of results into master data frame
+            master_swimming <- rbind(master_swimming, result_page)      
+            
+            
+            
+            #     Move to the next set of results
+            #     This is based on the assumption that the web site returns
+            #     exactly 25 records
+            startwith <- startwith + 25
+            
+            nextFileUrl <- paste("http://app06.ottawa.ca/cgi-bin/schedulesearch/searchschedule.pl?stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fpublic_swimming_results_en.xsl;notfound_stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fresults_notfound_en.xsl;notfound_stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fresults_notfound_en.xsl;sq_event=Swimming;sq_lang=en;sort=location%20asc%2Cstart_date%20asc%2CdayNo%20asc%2Cstart_time%20asc%2Csession_type%20asc;ret=http%3A%2F%2Fottawa.ca%2Fen%2Fnode%2F268957;sq_location=;sq_session_type=;sq_keywords1=;start=", startwith, sep="")
+            
+            doc <- xmlTreeParse(nextFileUrl, useInternal = TRUE)
+            
+            rootNode <- xmlRoot(doc)
+      }
+      
+      colnames(master_swimming) <- c('ID', 'Arena', 'Day', 'StartDate', 'EndDate', 'StartTime', 'EndTime', 'SessionType', 'Comments', 'Special', 'LocationMap')
+      
+      master_swimming
+}
+
+FormatSkating <- function(master_results) {
       formatted <- master_results     
       
       formatted$StartDate <- as.Date(formatted$StartDate)
@@ -121,7 +218,6 @@ FormatMaster <- function(master_results) {
       #     Add Johnny Leroux Longitude and Latitude (Missing from XML)
       formatted[formatted$Arena == 'Johnny Leroux Arena (Stittsville)', ]$Latitude <- 45.260748
       formatted[formatted$Arena == 'Johnny Leroux Arena (Stittsville)', ]$Longitude <- -75.925043
-
 
       #     Exclude the LocationMap field from result
       formatted[,-which(names(formatted) %in% c('LocationMap'))]
@@ -194,8 +290,92 @@ formatted[ ,"Locale"] <- ifelse(formatted[ , "Arena"] == "Brewer Arena", "Centra
       formatted
 }
 
+FormatSwimming <- function(master_results) {
+      formatted <- master_results     
 
-ParseCancellation <- function(x) {
+      #     Process dates
+      formatted$StartDate <- as.Date(formatted$StartDate)
+      formatted$EndDate <- as.Date(formatted$EndDate)
+      
+      #     Process coordinates
+      formatted$Latitude <- as.numeric(gsub(".*LAT=(.*)&LON.*", "\\1",  formatted$LocationMap))
+      formatted$Longitude <- as.numeric(gsub(".*LON=(.*)&feat.*", "\\1",  formatted$LocationMap))
+
+      #     Remove pools that are closed for annual maintenance
+      formatted <- formatted[grep('closed for annual', formatted$Special, invert = TRUE), ]
+      
+      
+      #     Exclude the LocationMap field from result
+      formatted[,-which(names(formatted) %in% c('LocationMap'))]
+      
+      # Clean up SessionType names
+      formatted[formatted$SessionType == 'Lane Swim', c('SessionType')] = 'Lane'
+      formatted[formatted$SessionType == '50m Lane Swim', c('SessionType')] = '50m Lane'
+
+      formatted[formatted$SessionType == 'Family Swim', c('SessionType')] = 'Family'
+      formatted[formatted$SessionType == 'Public Swim', c('SessionType')] = 'Public'
+      formatted[formatted$SessionType == 'Wave Swim', c('SessionType')] = 'Wave'
+      formatted[formatted$SessionType == '50+ Vitality', c('SessionType')] = '50+ Vitality'
+      formatted[formatted$SessionType == '50+ Swim', c('SessionType')] = '50+'
+      formatted[formatted$SessionType == 'Teen Swim', c('SessionType')] = 'Teen'
+
+      formatted[formatted$SessionType == 'Women Only',c('SessionType')] = 'Women Only'
+      formatted[formatted$SessionType == 'Women Only Family',c('SessionType')] = 'Women Only Family'
+      formatted[formatted$SessionType == 'Swim for Persons with a Disability',c('SessionType')] = 'With Disability'
+      formatted[formatted$SessionType == 'Preschool Swim',c('SessionType')] = 'Preschool'
+      
+      
+      # Categorize Session types
+      formatted$SessionGroup <- c('')
+      formatted[formatted$SessionType %in% c('Lane', '50m Lane'), ]$SessionGroup <- 'Lane'
+      formatted[formatted$SessionType %in% c('Family', 'Public', 'Wave'), ]$SessionGroup <- 'General'
+      formatted[formatted$SessionType %in% c('50+ Vitality', '50+', 'Teen', 'Preschool'), ]$SessionGroup <- 'Age Restricted'
+      formatted[formatted$SessionType %in% c('Women Only', 'Women Only Family'), ]$SessionGroup <- 'Gender Restricted'
+      formatted[formatted$SessionType %in% c('With Disability'), ]$SessionGroup <- 'With Disability'
+
+
+      # Categorize Pools
+      formatted$Locale <- c('')
+      
+      formatted[formatted$Arena == 'Bob MacQuarrie - Orléans Pool', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'Brewer Arena', ]$Locale <- 'Central'
+      formatted[ ,"Locale"] <- ifelse(formatted[ , "Arena"] == "Brewer Pool", "Central", formatted[ ,"Locale"])
+      formatted[formatted$Arena == 'Canterbury Pool', ]$Locale <- 'South'
+      formatted[formatted$Arena == 'Champagne Pool', ]$Locale <- 'Central'
+      formatted[formatted$Arena == 'Deborah Anne Kirwan Pool', ]$Locale <- 'South'
+      formatted[formatted$Arena == 'François Dupuis Pool', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'Goulbourn Pool', ]$Locale <- 'West'
+formatted[ ,"Locale"] <- ifelse(formatted[ , "Arena"] == "Goulbourn Pool", "West", formatted[ ,"Locale"])
+      formatted[formatted$Arena == 'Jack Purcell Pool', ]$Locale <- 'Central'
+      formatted[formatted$Arena == 'Kanata Wave Pool', ]$Locale <- 'West'
+      formatted[formatted$Arena == 'Lowertown Pool', ]$Locale <- 'Central'
+      formatted[formatted$Arena == 'Minto Recreation Complex - Barrhaven', ]$Locale <- 'South'
+      formatted[formatted$Arena == 'Nepean Sportsplex Pools', ]$Locale <- 'West End'
+      formatted[formatted$Arena == 'Pinecrest Pool', ]$Locale <- 'West End'
+      formatted[formatted$Arena == 'Plant Pool', ]$Locale <- 'Central'
+      formatted[formatted$Arena == 'Ray Friel Wave Pool', ]$Locale <- 'East'
+      formatted[formatted$Arena == 'Richcraft Recreation Complex - Kanata', ]$Locale <- 'West'
+      formatted[formatted$Arena == 'Sawmill Creek Pool', ]$Locale <- 'South'
+      formatted[formatted$Arena == 'Splash Wave Pool', ]$Locale <- 'East'
+      formatted[formatted$Arena == 'St-Laurent Pool', ]$Locale <- 'East'
+      formatted[formatted$Arena == 'Walter Baker Pool', ]$Locale <- 'West'
+      
+      #formatted[formatted$Arena == 'Bearbrook (Outdoor)', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'Genest (Outdoor)', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'Beaverbrook (Outdoor)', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'Corkstown (Outdoor)', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'Crestview (Outdoor)', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'Entrance (Outdoor)', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'General Burns (Outdoor)', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'Glen Cairn (Outdoor)', ]$Locale <- 'East'
+      #formatted[formatted$Arena == 'Katimavik (Outdoor)', ]$Locale <- 'East'
+
+      formatted$Arena <- gsub('( Pools)|( Pool)|( Recreation Complex)', '', formatted$Arena)
+
+      formatted
+}
+
+ParseCancellations <- function(x) {
       all_cancels <- data.frame()
       
       for(m in months) {
@@ -221,8 +401,8 @@ ParseCancellation <- function(x) {
 
             all_cancels      
       }
-
 }    
+
 
 GetDates <- function(to, from) {
       if (missing(from)) {
@@ -237,13 +417,14 @@ GetDates <- function(to, from) {
       dates
 }
 
+
 TransformData <- function(data) {
       #install.packages("stringr")
       library(stringr)
       #     Create set of dates to be used
       #     Recreating every time we run will remove old dates that are no longer relevant
       #     This could act as a natural limiter to the data volume
-      dates <- GetDates(max(formatted$EndDate))
+      dates <- GetDates(max(data$EndDate))
       
       #     Join each schedule row to list of dates to get individual schedules
       #     Keep all ancillary fields
@@ -252,7 +433,7 @@ TransformData <- function(data) {
       filtered <- all[all$Date >= all$StartDate & all$Date <= all$EndDate, ]
       
       #     Remove cancellations
-      cancellations <<- do.call(rbind, apply(formatted, 1, ParseCancellation))
+      cancellations <<- do.call(rbind, apply(data, 1, ParseCancellations))
 
       filtered <- merge(filtered, cancellations, by.x = c("ID", "Date"), by.y = c("ID", "CancelDate"), all.x = TRUE)
             
@@ -264,150 +445,49 @@ TransformData <- function(data) {
       filtered[is.na(filtered$Start), ]
 }
 
-CreateAnchor <- function() {
-
-      dates <- GetDates(max(formatted$EndDate))
-      
-      #     Add anchor / sponsorship
-      anchor <- dates
-      anchor$ID <- "0"
-      anchor$Day <- weekdays(anchor$Date)
-      anchor$Arena <- c('Valiquettes')
-      anchor$StartDate <- today()
-      anchor$EndDate <- today()
-      anchor$StartTime <- c('8:00')
-      anchor$EndTime <- c('17:00')
-      anchor$SessionType <- c('xxx')
-      anchor$Comments <- c('Nothing')
-      anchor$Latitude <- val_lat
-      anchor$Longitude <- val_long
-      anchor$Start <- NA
-      anchor$StartDateTime <- as.POSIXlt(paste(as.character(anchor$Date),  anchor$StartTime))
-      anchor$EndDateTime <- as.POSIXlt(paste(as.character(anchor$Date),  anchor$EndTime))
-      
-      anchor
-}
-
 
 SkateDriver <- function() {
       setwd("D:/Projects/Skating")
       
       #     Avoid loading the data multiple times from the website
-      if (!exists('master_results')) {
-            master_results <<- LoadSkating()            
+      if (!exists('master_skating')) {
+            master_skating <<- LoadSkating()            
       }
             
-      formatted <<- FormatMaster(master_results)
+      format_skate <<- FormatSkating(master_skating)
       
-      schdays <<- TransformData(formatted)
+      schdays_skate <<- TransformData(format_skate)
       
-      #     The following code creates a single point to always present on the map
-      #     It was intended as a way of showing a sponsor
-      #anchor <<- CreateAnchor()
-      
-      #schdays <<- rbind(schdays, anchor)
-      
-      write.csv(schdays[,c('Date', 'StartDateTime', 'EndDateTime', 'Arena', 'Locale', 'SessionType', 'SessionGroup', 'Latitude', 'Longitude')], file="skating.csv")
+      write.csv(schdays_skate[,c('Date', 'StartDateTime', 'EndDateTime', 'Arena', 'Locale', 'SessionType', 'SessionGroup', 'Latitude', 'Longitude')], file="skating.csv")
 }
+
+
 
 SkateDriver()
 
 
-
-
-
-
-
-#head(anchor)
-
-
-
-
-
-unique(schdays$Arena)
-
-#View(schdays[schdays$Arena == 'Valiquettes',])
-schdays[1:100,c('Date', 'StartTime', 'EndTime', 'StartDateTime', 'EndDateTime')]
-
-
-View(schdays[,c('Date', 'StartDateTime', 'EndDateTime', 'Arena', 'SessionType', 'Lat', 'Long')])
-class(schdays$Date)
-class(schdays$StartTime)
-
-View(schdays)
-cancellations$CancelDate < today()
-class(cancellations$CancelDate < today())
-class(cancellations$CancelDate)
-as.Date(ifelse(cancellations$CancelDate < today(), cancellations$CancelDate + years(1), cancellations$CancelDate), origin = '1970/1/1')
-
-today()
-
-head(schdays)
-head(formatted[,-which(names(formatted) %in% c('LocationMap'))])
-
-
-View(schdays)
-
-
-gsub(".*Dec (.*).*", "\\1",  formatted$Comments)
-
-
-schdays[schdays$Date ,]
-# x<-master_results
-# View(x)
-# head(master_results)
-# str(master_results)
-# View(master_results)
-# rm(master_results)
-
-# head(formatted)
-# str(formatted)
-
-View(formatted)
-
-
-
-cancellations <- data.frame()
-
-
-
-
-#     Remove cancellations
-do.call(rbind, apply(formatted, function(x) {
+SwimDriver <- function() {
+      setwd("D:/Projects/Skating")
       
-      x_Dec <- str_extract(x$Comments, "Dec [0-9, ]+")
+      #     Avoid loading the data multiple times from the website
+      if (!exists('master_swimming')) {
+            master_swimming <<- LoadSwimming()
+      }
       
-      str_extract_all(x_Dec, "[0-9]+")
+      format_swim <<- FormatSwimming(master_swimming)
       
-      #     Join everything together into a single data.frame
-      data.frame(x$id, x_Dec, stringsAsFactors = FALSE)
-}      ))
-
-
-str(formatted)
-do.call(rbind, sapply(formatted, function(x) {
+      schdays_swim <<- TransformData(format_swim)
       
-      x_Dec <- str_extract(x["Comments"], "Dec [0-9, ]+")
-      
-      #     Join everything together into a single data.frame
-      data.frame(x["ID"], x_Dec, stringsAsFactors = FALSE)
-}      ))
+      write.csv(schdays_swim[,c('Date', 'StartDateTime', 'EndDateTime', 'Arena', 'Locale', 'SessionType', 'SessionGroup', 'Latitude', 'Longitude')], file="swimming.csv")
+}
+
+SwimDriver()
 
 
- 
-      
-#debug(ParseCancellation)
-apply(formatted, 1, ParseCancellation)
 
 
-as.Date(paste('2014-Dec-', '25', sep=''), format = "%Y-%b-%d")
 
 
-str_extract("Decx 24, 31 ", "Dec [0-9]+")
-
-cancel <- str_extract_all("Dec 24, 31 ", "[0-9]+")
-
-as.Date(paste('2014-12-', cancel[[1]], sep=''))
 
 
 paste('Dec', str_extract_all("Dec 24, 31 ", "[0-9]+"))
@@ -416,21 +496,5 @@ nextFileUrl <- "http://app06.ottawa.ca/cgi-bin/schedulesearch/searchschedule.pl?
 
 doc <- xmlTreeParse(nextFileUrl, useInternal = TRUE)
 
-strapply("Dec 24, 31 ", "\\d+", as.numeric)
 
-# GetDates <- function(sd, ed, day, arena) {
-#       
-#       days <- seq(from = sd, to = ed, by="1 day")
-#       sch <- days[weekdays(days) == day]
-#       
-#       #     Join everything together into a single data.frame
-#       final <- data.frame(sch, stringsAsFactors = FALSE)
-#       
-#       #       final$Arena <- arena
-#       #       final$Day <- day
-#       final
-#       
-# }
-# mapply(GetDates, data$StartDate, data$EndDate, data$Day, data$Arena)
-# 
-# 
+
