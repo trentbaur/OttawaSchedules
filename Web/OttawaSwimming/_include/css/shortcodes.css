@@ -482,10 +482,11 @@ blockquote small:before {
     overflow: hidden;
     padding: 20px;
     position: relative;
+	margin-left: 5;
 }
 
 .info-text {
-    padding-right: 20%;
+    padding-right: 5%;
     position: relative;
 }
 
@@ -496,7 +497,7 @@ blockquote small:before {
 }
 
 .info-block p {
-	margin-bottom: 0;	
+	margin-bottom: 3;	
 }
 
 .info-block a.button {

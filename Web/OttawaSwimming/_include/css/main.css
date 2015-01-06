@@ -633,7 +633,7 @@ nav#menu #menu-nav li a:hover {
 
 .page {
 	/*background: #2F3238;*/
-	background: #535993;
+	background: #323875;
 	padding: 100px 0;
 	position: relative;
 	z-index: 99;
@@ -649,7 +649,7 @@ nav#menu #menu-nav li a:hover {
 
 .title-page {
 	text-align: center;
-	margin-bottom: 50px;	
+	margin-bottom: 10px;	
 }
 
 .title-page .title {
