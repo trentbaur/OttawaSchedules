@@ -81,6 +81,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   ga('create', 'UA-58179461-1', 'auto');
+  ga('require', 'displayfeatures');
   ga('send', 'pageview');
 
 </script>
@@ -118,7 +119,7 @@
         <a id="nextslide" class="load-item"><i class="font-icon-arrow-simple-right"></i></a>
         <ul id="slide-list"></ul>
         
-        <a id="nextsection" href="#what"><i class="font-icon-arrow-simple-down"></i></a>
+        <a id="nextsection" href="#schedule"><i class="font-icon-arrow-simple-down"></i></a>
     </div>
 </div>
 <!-- End Homepage Slider -->
@@ -135,44 +136,43 @@
         <nav id="menu">
         	<ul id="menu-nav">
             	<li class="current"><a href="#home-slider">Home</a></li>
-                <li><a href="#what">What Is This?</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="#schedule">Schedule</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="faq.html" class="external">FAQ</a></li>
+                <li><a href="faq.html" class="external">How To Use</a></li>
             </ul>
         </nav>
     </div>
 </header>
 <!-- End Header -->
 
-<!-- What Is This Section -->
-<div id="what" class="page">
+<!-- About Section -->
+<div id="about" class="page">
 	<div class="container">
 		<div class="row">
 			<div class="title-page">
-				<h2 class="title">What Is This?</h2>
+				<h2 class="title">About</h2>
 			</div>
 
 			<div class="info-block">
 				<div class="info-text">
 				
-				<p>As a lover of hockey and ice skating, I am constantly going to the City of Ottawa’s <a href="http://ottawa.ca/en/residents/parks-and-recreation/drop-activities/public-skating-schedules" class="external" target="new">Public Skating Schedule</a>. The City's site is a great resource but sometimes it's can be cumbersome to survey all of the data. Results are paginated, restricting results is awkward and one cannot search for multiple sessions at the same time such as the elusive Public + Family Skate search.</p>
-
+<!-- 				<p>As a lover of hockey and ice skating, I am constantly going to the City of Ottawa’s <a href="http://ottawa.ca/en/residents/parks-and-recreation/drop-activities/public-skating-schedules" class="external" target="new">Public Skating Schedule</a>. The City's site is a great resource but sometimes it's can be cumbersome to survey all of the data. Results are paginated, restricting results is awkward and one cannot search for multiple sessions at the same time such as the elusive Public + Family Skate search.</p>
+ -->
 				<p>OttawaSkating.com simplifies the search for skating times in Ottawa, making it easy to filter down to exactly what you're looking for and get your results quickly. Scheduling data is taken directly from the City of Ottawa’s site and processed for use in the site.</p>
 				
 				<p>And posted cancellations are removed from the underlying data.</p>
 
-				<p>Search by multiple session types and/or multiple locales or rinks and have the data presented on both a map and in tabular format. Scroll through each day while maintaining your filter selection.</p>
+				<p>Search by Session Group and/or multiple Locales and have the data presented on both a map and in tabular format. Click through each day while maintaining your filter selections.</p>
 				
-				<p>Hopefully everything is pretty straightforward and easy to use. Click on <a href="#schedule">Schedule</a> to get started. I encourage you to read the <a href="faq.html" class="external">FAQ</a> to learn about the few nuances of using the site.</p>
+				<p>Scroll down to the <a href="#schedule">Schedule</a> to get started. I encourage you to read the <a href="faq.html" class="external">How To Use</a> page to learn about the few nuances of using the site.</p>
 				
 				<p>Finally, a separate site has been created for Ottawa's swimming schedule: <a href="http://www.OttawaSwimming.com" class="external" target="new">OttawaSwimming.com</a></p>
-				
 				</div>				
 			</div>
 		</div>
 	</div>
-<!-- End What Is This Section -->
+<!-- End About Section -->
 </div>
 
 <!-- Visualization Section -->
@@ -182,10 +182,10 @@
         <div class="row">
             <div class="span12">
                 <div class="title-page">
-                    <h2 class="title">Skating Schedule</h2>					
-					<h3 class="title-description">Hint: Avoid making multiple filter changes too quickly.</h3>
+                    <h2 class="title">Ottawa Skating Schedule</h2>					
+					<h4>Hint: Avoid making filter changes too quickly.</h4>
 					
-					<iframe frameborder="0" height="1000" width="950" scrolling="no" src="https://public.tableausoftware.com/views/Ottawa/Skating?:showVizHome=no:embed=y&:display_count=no&:showVizHome=no#1"></iframe>
+					<iframe frameborder="0" height="3000" width="100%" scrolling="no" src="https://public.tableausoftware.com/views/Skating_prod/Skating?:showVizHome=no:embed=y&:display_count=no&:showVizHome=no#1"></iframe>
 					
 					<br/>
 
@@ -201,6 +201,7 @@
 <!-- End Visualization Section -->
 
 
+
 <!-- Contact Section -->
 <div id="contact" class="page">
 	<div class="container">
@@ -212,15 +213,13 @@
 					<h3>Suggestions? Questions? Comments? Let me know what you think.</h3>
 					<a href="mailto:trentbaur@gmail.com">trentbaur@gmail.com</a>
 				</div>
-				
-</a>
 			</div>
-		</div>
+		</div>			
 		<!-- End Title Page -->
-		
 	</div>
 </div>
 <!-- End Contact Section -->
+
 
 <!-- Socialize -->
 <div id="social-area" class="page">
@@ -230,9 +229,16 @@
 				<h3>Feel free to reach out to me on social media.</h3>
                 <nav id="social">
                     <ul>
-                        <li><a href="https://twitter.com/TrentBaur" title="Follow Me on Twitter" target="_blank"><span class="font-icon-social-twitter"></span></a></li>
-                        <li><a href="https://www.facebook.com/TrentBaur" title="Follow Me on Facebook" target="_blank"><span class="font-icon-social-facebook"></span></a></li>
-                        <li><a href="https://www.linkedin.com/pub/trent-baur/0/777/4a4" title="Follow Me on LinkedIn" target="_blank"><span class="font-icon-social-linkedin"></span></a></li>
+                        <li><a href="https://twitter.com/TrentBaur" title="Follow Me on Twitter" target="_blank">
+						<span class="font-icon-social-twitter"></span>
+						<!-- <i class="font-icon-social-twitter"></i> -->
+						</a></li>
+                        <li><a href="https://www.facebook.com/TrentBaur" title="Follow Me on Facebook" target="_blank">
+						<span class="font-icon-social-facebook"></span>
+						</a></li>
+                        <li><a href="https://www.linkedin.com/pub/trent-baur/0/777/4a4" title="Follow Me on LinkedIn" target="_blank">
+						<span class="font-icon-social-linkedin"></span>
+						</a></li>
                     </ul>
                 </nav>
             </div>
@@ -248,9 +254,9 @@
 <!-- End Footer -->
 
 <!-- Back To Top -->
-<a id="back-to-top" href="#">
+<!-- <a id="back-to-top" href="#">
 	<i class="font-icon-arrow-simple-up"></i>
-</a>
+</a> -->
 <!-- End Back to Top -->
 
 
