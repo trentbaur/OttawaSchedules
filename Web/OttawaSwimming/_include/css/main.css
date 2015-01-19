@@ -336,7 +336,16 @@ h3.spec {
 #home-slider .control-nav {
 	position: absolute;
 	width: 100%;
-	/*background: #2F3238;*/
+	background: #2F3238;
+	height: 50px;
+	bottom: 0;
+	z-index: 2;
+}
+
+/* Swim specific code */
+#home-slider .control-nav-swim {
+	position: absolute;
+	width: 100%;
 	background: #535993;
 	height: 50px;
 	bottom: 0;
@@ -346,8 +355,7 @@ h3.spec {
 #home-slider #nextslide,
 #home-slider #prevslide {
 	background-image: none;
-	/*background-color: #26292E;*/
-	background-color: #191F58;
+	background-color: #26292E;
 	display: inline-block;
 	margin: 0;
 	position: relative;
@@ -365,6 +373,12 @@ h3.spec {
 		    transition: background 0.1s linear 0s;
 }
 
+/* Swim specific code */
+#home-slider .control-nav-swim #nextslide ,
+#home-slider .control-nav-swim #prevslide  {
+	background-color: #191F58;
+}
+	
 #home-slider #nextslide {
 	margin-left: -3px;	
 }
@@ -437,8 +451,7 @@ h3.spec {
 }
 
 #home-slider #nextsection {
-	/*background-color: #26292E;*/
-	background-color: #191F58;
+	background-color: #26292E;
 	margin: 0;
 	position: relative;
 	float:right;
@@ -450,6 +463,11 @@ h3.spec {
 		 -o-transition: background 0.1s linear 0s;
 		    transition: background 0.1s linear 0s;
 }
+
+/* Swim specific code */
+#home-slider .control-nav-swim #nextsection {
+	background-color: #191F58;
+}	
 
 #home-slider #nextsection:hover {
 	background-color:#DE5E60;
@@ -483,13 +501,17 @@ header .sticky-nav {
 	position: relative;
 	width: 100%;
 	height: 60px;
-	/*background: #26292E;*/
-	background: #191F58;
+	background: #26292E;
 	z-index: 1001;
 	
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+/* Swim specific code */
+header#swim-header .sticky-nav{
+	background: #191F58;
 }
 
 header .sticky-nav.stuck {
@@ -507,7 +529,7 @@ header #logo {
 }
 
 header #logo a {
-	background: url(../img/logo.png) no-repeat;
+	background: url(../img/logo-skate.png) no-repeat;
 	width: 200px;
 	height: 30px;
 	text-indent: -9999px;
@@ -519,6 +541,11 @@ header #logo a {
 	   -moz-transition: opacity 0.25s ease-in-out 0s;
 		 -o-transition: opacity 0.25s ease-in-out 0s;
 		    transition: opacity 0.25s ease-in-out 0s;	
+}
+
+/* Swim specific code */
+header#swim-header #logo a {
+	background: url(../img/logo-swim.png) no-repeat;
 }
 
 header #logo a:hover {
@@ -632,16 +659,29 @@ nav#menu #menu-nav li a:hover {
 ================================================== */
 
 .page {
-	/*background: #2F3238;*/
-	background: #323875;
+	background: #2F3238;
 	padding: 100px 0;
 	position: relative;
 	z-index: 99;
 }
 
 .page-alternate {
+	background: #26292E;
+	padding: 100px 0;
+	position: relative;
+	z-index: 99;
+}
+
+/* Swim specific code */
+.page-swim {
 	background: #323875;
-	/*background: #26292E;*/
+	padding: 100px 0;
+	position: relative;
+	z-index: 99;
+}
+
+.page-swim-alternate {
+	background: #323875;
 	padding: 100px 0;
 	position: relative;
 	z-index: 99;
@@ -902,7 +942,10 @@ nav#menu #menu-nav li a:hover {
 /* ==================================================
    Contact Section
 ================================================== */
-
+#contact {
+	padding-bottom:30px;
+}
+	
 .contact-details h3 {
 	color: #FFFFFF;
     font-size: 24px;
@@ -1048,6 +1091,7 @@ nav#menu #menu-nav li a:hover {
 
 #social-area {
     text-align: center;
+	padding-top: 0;
 }
 
 #social-area #social ul {
@@ -1071,7 +1115,7 @@ nav#menu #menu-nav li a:hover {
 	width: 70px;
 	height: 70px;
 
-	background: #26292E;
+	background: #DE5E60;
 	
 	-webkit-transition: all 400ms ease-out 0s;	
 	   -moz-transition: all 400ms ease-out 0s;
@@ -1088,12 +1132,13 @@ nav#menu #menu-nav li a:hover {
 #social ul li a span {
 	display: inline-block;
 	margin: 0;
-	color: #55606a;
+	/* color: #55606a; */
+	/* color: #DE5E60; */
+	color: #FFFFFF;
 	font-size: 32px;
 	line-height: 70px;
-	
-	opacity: 0.3;
-	filter: alpha(opacity=30);
+	/* opacity: 0.3; */
+/* 	filter: alpha(opacity=30);*/
 	
 	-webkit-transition: all 400ms ease-out 0s;	
 	   -moz-transition: all 400ms ease-out 0s;
@@ -1104,7 +1149,7 @@ nav#menu #menu-nav li a:hover {
 	   -moz-transform: rotateY(180deg);
 		-ms-transform: rotateY(180deg);
 		 -o-transform: rotateY(180deg);
-			transform: rotateY(180deg);
+			transform: rotateY(180deg); 
 }
 
 #social ul li:hover a,
@@ -1144,6 +1189,12 @@ footer {
 	z-index: 99;
 }
 
+/* Swim specific code */
+footer#swim-footer{
+	background: #191F58;
+}
+
+
 footer .credits {
 	color: #FFFFFF;
 	font-size: 13px;
@@ -1158,8 +1209,7 @@ footer .credits {
 
 #back-to-top {
 	display: none;
-	/*background-color: #3C3F45;*/
-	background-color: #7D82B0;
+	background-color: #3C3F45;
 	margin: 0;
 	position: fixed;
 	bottom: 0;

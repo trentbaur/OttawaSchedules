@@ -108,18 +108,18 @@
     	<div id="slidecaption"></div>
     </div>   
 	
-	<div class="control-nav">
+	<div class="control-nav-swim">
         <a id="prevslide" class="load-item"><i class="font-icon-arrow-simple-left"></i></a>
         <a id="nextslide" class="load-item"><i class="font-icon-arrow-simple-right"></i></a>
         <ul id="slide-list"></ul>
         
-        <a id="nextsection" href="#what"><i class="font-icon-arrow-simple-down"></i></a>
+        <a id="nextsection" href="#schedule"><i class="font-icon-arrow-simple-down"></i></a>
     </div>
 </div>
 <!-- End Homepage Slider -->
 
 <!-- Header -->
-<header>
+<header id="swim-header">
     <div class="sticky-nav">
     	<a id="mobile-nav" class="menu-nav" href="#menu-nav"></a>
         
@@ -129,11 +129,11 @@
         
         <nav id="menu">
         	<ul id="menu-nav">
-            	<li class="current"><a href="#home-slider">Home</a></li>
-                <li><a href="#what">What Is This?</a></li>
+            	<!-- <li class="current"><a href="#home-slider">Home</a></li> -->
+                <li><a href="#about">About</a></li>
                 <li><a href="#schedule">Schedule</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="faq.html" class="external">FAQ</a></li>
+                <li><a href="faq.html" class="external">How To Use</a></li>
             </ul>
         </nav>
     </div>
@@ -141,29 +141,29 @@
 <!-- End Header -->
 
 <!-- What Is This Section -->
-<div id="what" class="page">
+<div id="about" class="page-swim">
 	<div class="container">
 		<div class="row">
 			<div class="title-page">
-				<h2 class="title">What Is This?</h2>
+				<h2 class="title">About</h2>
 			</div>
 
 			<div class="info-block">
 				<div class="info-text">
 				
-		<!-- 		<p>This site was born from my desire to create an easier way to find Skating sessions in Ottawa. The City's site is a great resource but sometimes it's can be cumbersome to survey all of the data. Results are paginated, restricting results is awkward and one cannot search for multiple sessions at the same time such as the elusive Public + Family Skate search. </p>
-				
-				<p>After creating <a href="http://www.OttawaSkating.com" class="external" target="new">OttawaSkating.com</a> I decided to do the same with Ottawa's swimming schedule.</p> -->
-				
-				<p>OttawaSwimming.com simplifies the search for swim times in Ottawa by presenting the swimming sessions in multiple formats: By Pool, By Time and By Location on a map. Set the filters to exactly the session and location you want and the results immediately display. The data is also designed to make it easy to browse through schedules on a day to day basis after setting up session and location preferences.</p>
-				
+				<p>OttawaSwimming.com simplifies the search for swim times in Ottawa, making it easy to filter down to exactly what you're looking for and get your results quickly.</p>
+
 				<p>All swimming schedule data is taken directly from the City of Ottawa’s <a href="http://ottawa.ca/en/residents/parks-and-recreation/drop-activities/public-swimming-schedules" target="new">Public Swimming Schedule</a> and processed for use in the site.</p>
 				
-				<p>And posted cancellations are removed from the underlying data.</p>
+				<p>And posted cancellations are automatically removed from the final data results.</p>
 
-				<p>Hopefully everything is pretty straightforward and easy to use. Scroll down to the <a href="#schedule">Schedule</a> to get started. I encourage you to read the <a href="faq.html" class="external">FAQ</a> to learn about the few nuances of using the site.</p>
+				<p>Search by Session Group and/or multiple Locales and have the data presented on both a map and in tabular format. Click through each day while maintaining your filter selections.</p>
 				
-				<p>One note: I discovered that there is far more swimming data than skating data and that presents some challenges when viewing one's results. So proper filter selection is critical to getting full use out of the site.</p>
+				<p>Scroll down to the <a href="#schedule">Schedule</a> to get started. I encourage you to read the <a href="faq.html" class="external">How To Use</a> page to learn about the few nuances of using the site.</p>
+				
+				<p>One note: The large amount of swimming data presents some challenges when viewing one's results on the map. Proper filter selection is critical to getting full use out of the site.</p>
+				
+				<p>Finally, a separate site has been created for Ottawa's Skating Schedule: <a href="http://www.OttawaSkating.com" class="external" target="new">OttawaSkating.com</a></p>
 				
 				</div>
 			</div>
@@ -174,7 +174,7 @@
 
 
 <!-- Visualization Section -->
-<div id="schedule" class="page">
+<div id="schedule" class="page-swim">
 	<div class="container">
     	<!-- Viz Page -->
         <div class="row">
@@ -184,7 +184,7 @@
 					<h4>Use the filters and/or zoom to minimize overlapping text.<br/> Avoid making multiple filter changes too quickly.</h4>
 
 					
-					<iframe frameborder="0" height="2000" width="100%" scrolling="no" src="https://public.tableausoftware.com/views/Swimming_prod/Swimming?:showVizHome=no:embed=y&:display_count=no&:showVizHome=no#1"></iframe>
+					<iframe frameborder="0" height="3550" width="100%" scrolling="no" src="http://public.tableausoftware.com/views/Swimming_prod/Swimming?:showVizHome=no:embed=y&:display_count=no&:showVizHome=no#1"></iframe>
 					
 					<br/>
 
@@ -201,7 +201,7 @@
 
 
 <!-- Contact Section -->
-<div id="contact" class="page">
+<div id="contact" class="page-swim">
 	<div class="container">
 		<!-- Title Page -->
 		<div class="row">
@@ -220,7 +220,7 @@
 <!-- End Contact Section -->
 
 <!-- Socialize -->
-<div id="social-area" class="page">
+<div id="social-area" class="page-swim">
 	<div class="container">
     	<div class="row">
             <div class="span12">
@@ -239,16 +239,10 @@
 <!-- End Socialize -->
 
 <!-- Footer -->
-<footer>
+<footer id="swim-footer">
 	<p class="credits">&copy;2013 Brushed. <a href="http://themes.alessioatzeni.com/html/brushed/" title="Brushed | Responsive One Page Template">Brushed Template</a> by <a href="http://www.alessioatzeni.com/" title="Alessio Atzeni | Web Designer &amp; Front-end Developer">Alessio Atzeni</a></p>
 </footer>
 <!-- End Footer -->
-
-<!-- Back To Top -->
-<a id="back-to-top" href="#">
-	<i class="font-icon-arrow-simple-up"></i>
-</a>
-<!-- End Back to Top -->
 
 
 <!-- Js -->

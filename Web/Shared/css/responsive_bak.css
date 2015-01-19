@@ -1,34 +1,3 @@
-@media (max-width: 1199px) {
-	#home-slider .slider-text {
-		width: 100%;
-		position: relative;
-		top: auto;
-		left: auto;
-		height: auto;
-		margin: 150px auto;
-	}
-	#home-slider .overlay {
-		position: fixed;
-		left: 0;
-		right: 0;
-	}
-	#supersized {
-		position: static;
-		right: 0;
-	}
-	#supersized li {
-		position: absolute;
-	}
-}
-
-@media (min-width: 979px){
-	iframe {
-		margin: 0 auto;
-		display:block;
-		width: 900px;
-	}
-}
-
 @media (min-width: 768px) and (max-width: 979px) {
 	#menu {
 		display: none;	
@@ -48,7 +17,7 @@
 		margin-right: 20px;	
 	}
 	
-	/* #social-area #social ul li {
+	#social-area #social ul li {
 		margin-left: 15px;
 	}
 	
@@ -60,7 +29,7 @@
 	#social-area #social ul li a span {
 		font-size: 24px;
 		line-height: 50px;
-	} */
+	}
 	
 	#twitter-feed {
 		padding-top: 110px;
@@ -75,14 +44,12 @@
 	.info-text {
 		padding-right: 0;	
 	}
-	
-
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
-/* 	#back-to-top {
+	#back-to-top {
 		display: none !important;	
-	} */
+	}
 	
 	#home-slider {
 		margin-left: -20px;
@@ -97,8 +64,6 @@
 	#navigation-mobile,
 	.page,
 	.page-alternate,
-	.page-swim,
-	.page-swim-alternate,
 	#twitter-feed,
 	footer {
 		margin-left: -20px;
@@ -196,7 +161,7 @@
 		box-sizing: border-box;	
 	}
 	
-	/* #social-area #social ul li:first-child,
+	#social-area #social ul li:first-child,
 	#social-area #social ul li {
 		margin: 15px;
 	}
@@ -209,7 +174,7 @@
 	#social-area #social ul li a span {
 		font-size: 24px;
 		line-height: 50px;
-	} */
+	}
 	
 	#twitter-feed {
 		padding-top: 90px;
@@ -237,25 +202,11 @@
 	}
 }
 
-
-@media (max-width: 767px) {
-	#home-slider, #supersized, .sticky-wrapper {
-		display: none;
-		visibility: hidden;
-	}
-	
-	body {
-		background-position: -9999px -9999px;
-	}
-	
-}
-
-
 @media (max-width: 480px) {
-	/* #back-to-top {
+	#back-to-top {
 		display: none !important;	
-	} */
-
+	}
+	
 	#home-slider {
 		margin-left: -20px;
 		margin-right: -20px;
@@ -267,15 +218,12 @@
 	
 	header .sticky-nav {
 		position: relative;	
-		/* display: none; */	
 	}
 	
 	header .sticky-nav,
 	#navigation-mobile,
 	.page,
 	.page-alternate,
-	.page-swim,
-	.page-swim-alternate,
 	#twitter-feed,
 	footer {
 		margin-left: -20px;
@@ -382,7 +330,7 @@
 		box-sizing: border-box;	
 	}
 	
-	/* #social-area #social ul li:first-child,
+	#social-area #social ul li:first-child,
 	#social-area #social ul li {
 		margin: 15px;
 	}
@@ -395,7 +343,7 @@
 	#social-area #social ul li a span {
 		font-size: 24px;
 		line-height: 50px;
-	} */
+	}
 	
 	#twitter-feed {
 		padding-top: 90px;

@@ -277,7 +277,7 @@ formatted[ ,"Locale"] <- ifelse(formatted[ , "Arena"] == "Brewer Arena", "Centra
       formatted[formatted$Arena == 'Nepean Sportsplex', ]$Locale <- 'West End'
       formatted[formatted$Arena == 'R. J. Kennedy Arena', ]$Locale <- 'East'
       formatted[formatted$Arena == 'Ray Friel Recreation Complex', ]$Locale <- 'East'
-      formatted[formatted$Arena == 'Richmond Arena', ]$Locale <- 'West'
+      formatted[formatted$Arena == 'Richmond Arena', ]$Locale <- 'South'
       formatted[formatted$Arena == 'Sandy Hill Arena', ]$Locale <- 'Central'
       formatted[formatted$Arena == 'St-Laurent Complex', ]$Locale <- 'East'
       formatted[formatted$Arena == 'Stuart Holmes (Osgoode) Arena', ]$Locale <- 'South'
