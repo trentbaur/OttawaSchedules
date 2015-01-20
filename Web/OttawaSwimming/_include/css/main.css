@@ -111,6 +111,10 @@ hr {
 	text-decoration:line-through;
 }
 
+.info-text ul li{
+    padding-bottom: 15px;
+}
+
 input, button, select, textarea {
 	font-weight: 300;
 	font-family: 'Titillium Web', sans-serif;
@@ -682,7 +686,7 @@ nav#menu #menu-nav li a:hover {
 
 .page-swim-alternate {
 	background: #323875;
-	padding: 100px 0;
+	padding: 75px 0 50px 0;
 	position: relative;
 	z-index: 99;
 }
