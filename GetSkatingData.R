@@ -1,3 +1,8 @@
+install.packages('RCurl')
+install.packages('XML')
+install.packages('lubridate')
+install.packages('stringr')
+
 library('RCurl')
 library('XML')
 library('lubridate')
@@ -6,6 +11,7 @@ library('stringr')
 setwd("D:/Projects/Skating")
 
 months <- c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+daynames <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
 
 #---------------------------------
 #     Define Session names
@@ -122,6 +128,7 @@ arenas <- as.data.frame(arenas)
 
 LoadData <- function(fileUrl, nextFileUrl) {
       master <- data.frame()
+      master_day <- data.frame()
       
       startwith <- c(0)
       
@@ -204,9 +211,19 @@ LoadData <- function(fileUrl, nextFileUrl) {
             rootNode <- xmlRoot(doc)
       }
       
-      colnames(master) <- c('ID', 'Arena', 'Day', 'StartDate', 'EndDate', 'StartTime', 'EndTime', 'SessionType', 'Comments', 'Special', 'LocationMap')
+      #     The city feed started to combine multiple Days in to a single record
+      #     Cycle through each record, matching on the Day of the Week string, and insert into
+      #     separate aggregate table
+      for (d in daynames) {
+            temp <- master[grepl(d, master$day), ]
+            temp$day <- d
+
+            master_day <- rbind(master_day, temp)
+      }
       
-      master
+      colnames(master_day) <- c('ID', 'Arena', 'Day', 'StartDate', 'EndDate', 'StartTime', 'EndTime', 'SessionType', 'Comments', 'Special', 'LocationMap')
+      
+      master_day
 }
 
       
@@ -351,7 +368,7 @@ SkateDriver <- function() {
       if (!exists('master_skating')) {
             fileUrl <- "http://app06.ottawa.ca/cgi-bin/schedulesearch/searchschedule.pl?stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fpublic_skating_results_en.xsl&sq_event=Skating&sq_lang=en&sort=location+asc%2CdayNo+asc%2Cstart_date+asc%2Cstart_time+asc%2Csession_type+asc&ret=http%3A%2F%2Fottawa.ca%2Fen%2Fnode%2F268948&notfound_stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fresults_notfound_skating_en.xsl&sq_location=&sq_session_type=&sq_keywords1=&"
             nextFileUrl <- "http://app06.ottawa.ca/cgi-bin/schedulesearch/searchschedule.pl?stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fpublic_skating_results_en.xsl;sq_event=Skating;sq_lang=en;sort=location%20asc%2CdayNo%20asc%2Cstart_date%20asc%2Cstart_time%20asc%2Csession_type%20asc;ret=http%3A%2F%2Fottawa.ca%2Fen%2Fnode%2F268948;notfound_stylesheet=http%3A%2F%2Fapp06.ottawa.ca%2Ftemplates%2Fxslt%2Fresults_notfound_skating_en.xsl;sq_location=;sq_session_type=;sq_keywords1=;start="
-            
+                            
             master_skating <<- LoadData(fileUrl, nextFileUrl)            
       }
             
@@ -410,8 +427,12 @@ SkateDriver()
 
 SwimDriver()
 
+#rm(master_swimming)
+#rm(master_skating)
 
-View(master_swimming)
+View(schdays_skate)
+View(schdays_swim)
+
 
 
 
