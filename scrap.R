@@ -70,3 +70,19 @@ xmlAttrs(cols[[10]])
 readHTMLTable("http://ottawa.ca/2/en/drop-in-programs?activity-id=391&field_dropin_facility_target_id_selective=All&field_dropin_activity_type_target_id_selective=All")
 
 doc$children[6]$html
+
+
+
+#     Encoding
+
+
+x<-matrix(c('Bob MacQuarrie Recreation Complex - Orléans', 'East', '45.466459', '-75.545228'), ncol = 4)
+
+
+as.data.frame(x)
+
+
+Encoding[as.vector(x[,1])]
+
+
+

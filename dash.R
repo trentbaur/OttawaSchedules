@@ -29,7 +29,7 @@ u_char_info(substring(master_skating$SessionType[3], 16, end))
 unicode(substring(master_skating$SessionType[3], 16, end))
 
 
-master_skating$SessionType[3]==iconv('Pick-up Hockey – Adults 18+', "latin1", "UTF-8")
+data$SessionType[3]==iconv('Pick-up Hockey – Adults 18+', "latin1", "UTF-8")
 
 
 sessions[sessions$shortname=='Pickup 18+',]$longname <- master_skating$SessionType[3]
@@ -40,7 +40,7 @@ iconv('Pick-up Hockey – Adults 18+', "latin1", "UTF-8")
 master_skating$SessionType[3]
 
 substring(master_skating$SessionType[3], 16, end)
-asc(substring(master_skating$SessionType[3], 16, end))
+asc(substring(data$SessionType[3], 16, end))
 
 
-Encoding(sessions$longname)
+Encoding(data[71,]$SessionType)
