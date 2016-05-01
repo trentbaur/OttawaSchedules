@@ -94,7 +94,7 @@ arenas <- matrix(c('Barbara Ann Scott Arena', 'West End', '45.348021', '-75.7734
                    , 'R.J. Kennedy Arena', 'East', '45.514531', '-75.402976'
                    , 'Ray Friel Recreation Complex', 'East', '45.471382', '-75.49173'
                    , 'Richmond Arena', 'South', '45.195657', '-75.837795'
-                   , 'Sandy Hill Community Centre', 'Central', '45.419286', '-75.673804'
+                   , 'Sandy Hill Arena', 'Central', '45.419286', '-75.673804'
                    , 'St-Laurent Complex', 'East', '45.43638', '-75.647014'
                    , 'Stuart Holmes Arena', 'South', '45.147472', '-75.601273'
                    , 'Tom Brown Arena', 'Central', '45.408105', '-75.722154'
@@ -116,10 +116,10 @@ arenas <- rbind(arenas,
                          , 'Lowertown Pool', 'Central', '45.434277', '-75.681504'
                          , 'Minto Recreation Complex - Barrhaven', 'South', '45.253397', '-75.736022'
                          , 'Nepean Sportsplex', 'West End', '45.326912', '-75.746002'
-                         , 'Pinecrest Pool', 'West End', '45.348021', '-75.773401'
+                         , 'Pinecrest Recreation Complex', 'West End', '45.348021', '-75.773401'
                          , 'Plant Recreation Centre', 'Central', '45.40799', '-75.714452'
                          , 'Ray Friel Recreation Complex', 'East', '45.471382', '-75.49173'
-                         , 'Richcraft Recreation Center - Kanata', 'West', '45.344475', '-75.93036'
+                         , 'Richcraft Recreation Complex - Kanata', 'West', '45.344475', '-75.93036'
                          , 'Sawmill Creek Pool & Community Centre', 'South', '45.350423', '-75.636775'
                          , 'Splash Wave Pool', 'East', '45.437087', '-75.600821'
                          , 'St-Laurent Pool', 'East', '45.43638', '-75.647014'
@@ -131,6 +131,6 @@ arenas <- rbind(arenas,
 
 colnames(arenas) <- c('Arena', 'Locale', 'Latitude', 'Longitude')
 
-arenas <- as.data.frame(unique(arenas))
+arenas <- as.data.frame(arenas, stringsAsFactors = F)
 
 

@@ -1,6 +1,6 @@
-install.packages('XML')
-install.packages('RCurl')
-install.packages('stringr')
+#install.packages('XML')
+#install.packages('RCurl')
+#install.packages('stringr')
 
 library(XML)
 library(RCurl)

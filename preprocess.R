@@ -33,6 +33,8 @@ retrieve_data <- function(type='skate', test=TRUE, page=0) {
       repeat{
             fileUrl <- get_url(type, page)
             
+            print(fileUrl)
+            
             doc <- htmlTreeParse(fileUrl, useInternal = TRUE)
             
             rootNode <- xmlRoot(doc)
@@ -50,7 +52,7 @@ retrieve_data <- function(type='skate', test=TRUE, page=0) {
                   id <- NA
                   
                   location <- ifelse(is.null(xmlValue(x[[1]])), NA,
-                                     str_split(string = xmlValue(x[[1]], trim=T), pattern=' \\n Map')[[1]][1])
+                                     gsub(pattern = '\r\n', replacement = '', x = trim(str_split(string = xmlValue(x[[1]], trim=T), pattern='\n   Map')[[1]][1])))
                   #gsub(x = xmlValue(x[[1]], trim=T), pattern = ' \\nMap', replacement = ''))
                   
                   day <- ifelse(is.null(xmlValue(x[[7]])), NA, xmlValue(x[[7]], trim=T))
@@ -58,7 +60,7 @@ retrieve_data <- function(type='skate', test=TRUE, page=0) {
                   start_date <- ifelse(xmlValue(x[[9]], trim=T)=='Ongoing', format(Sys.Date(), '%B %d'), xmlValue(x[[9]], trim=T))
                   
                   #     Fudge end date since the site doesn't provide end date per session
-                  end_date <- '2016-03-31'
+                  end_date <- '2016-08-31'
                   
                   starttime <- ifelse(is.null(str_split(xmlValue(x[[5]]), 'to')[[1]][1]), NA, str_split(xmlValue(x[[5]], trim=T), 'to')[[1]][1])
                   
@@ -80,7 +82,7 @@ retrieve_data <- function(type='skate', test=TRUE, page=0) {
             #     Move to the next set of results
             page <- page + 1
             
-            if(test) break
+            if(test || page > 30) break
       }
       
       all_results$id <- seq(1, nrow(all_results))
@@ -97,8 +99,14 @@ retrieve_data <- function(type='skate', test=TRUE, page=0) {
                   all_results_by_day <- rbind(all_results_by_day, temp)
             }
       }      
-      
+
       colnames(all_results_by_day) <- c('ID', 'Arena', 'Day', 'StartDate', 'EndDate', 'StartTime', 'EndTime', 'SessionType', 'Comments')
+
+      #     Clean up Sawmill Arena entries
+      if (type=='swim')
+      {
+            all_results_by_day[grepl(pattern = 'Sawmill Creek Pool', x = all_results_by_day$Arena),]$Arena <- c('Sawmill Creek Pool & Community Centre')
+      }
       
       if(test) {
             all_results_by_day
@@ -106,7 +114,7 @@ retrieve_data <- function(type='skate', test=TRUE, page=0) {
             write.csv(x = all_results_by_day, file = paste0(folder_raw, 'data_', type, '.csv'), fileEncoding = "latin1")
       }
 }
-#     retrieve_data(type='swim', test=F)
+#     retrieve_data(type='skate', test=F)
 #     retrieve_data(type='swim', test=F)
 
 
@@ -140,7 +148,7 @@ format_data <- function(data) {
       last_sessions <- grepl(pattern = 'Last session', x = data$Comments)
       
       if(sum(last_sessions)>0) {
-            data[last_sessions,]$EndDate <- as.Date(trim(gsub(x = data[last_sessions,]$Comments, pattern = 'Last session: ',replacement = '')), format = '%A, %B %d, %Y')
+            data[last_sessions,]$EndDate <- as.Date(trim(gsub(x = data[last_sessions,]$Comments, pattern = '.+Last session: ',replacement = '')), format = '%A, %B %d, %Y')
       }
 
       
@@ -155,10 +163,9 @@ format_data <- function(data) {
       #----------------------------------------------------
       #     Join to Arenas lookup to retrieve Locale
       #----------------------------------------------------
-      #     Clean up Sawmill Arena entries
-      data[grepl(pattern = 'Sawmill Creek Pool', x = data$Arena),]$Arena <- c('Sawmill Creek Pool & Community Centre')
-
-      data <- merge(data, arenas, by="Arena", all.x = T)
+      #data$Arena <- iconv(data$Arena, to="latin1")
+      #arenas$Arena <- iconv(arenas$Arena, to="latin1")
+      data <- merge(data, unique(arenas), by="Arena", all.x = T)
       
       
       #---------------------------------
@@ -180,7 +187,7 @@ parse_cancellations <- function(x) {
                   if(!is.na(can)) {
                         cancel <- str_extract_all(can, "[0-9]+")
                         
-                        canceldates <- as.Date(paste('2015-', m, '-', cancel[[1]], sep=''), format = "%Y-%b-%d")
+                        canceldates <- as.Date(paste('2016-', m, '-', cancel[[1]], sep=''), format = "%Y-%b-%d")
                         canceldates <- as.Date(ifelse (as.Date(canceldates) < Sys.Date(), canceldates + years(1), canceldates), origin = '1970-1-1')
                         
                         #     Join everything together into a single data.frame
@@ -225,7 +232,7 @@ normalize_data <- function(data) {
       filtered$EndDateTime <- as.POSIXlt(as.character(paste(as.character(filtered$Date),  filtered$EndTime)), "%Y-%m-%d %I:%M %p ", tz="EST")
       
       #     Return filtered dates without cancellations
-      filtered[is.na(filtered$Start), ]
+      filtered[is.na(filtered$Start) & !is.na(filtered$Date), ]
 }
 
 
