@@ -1,0 +1,2 @@
+load("/Users/Trent/Projects/OttawaSchedules/data_raw/skating_20161216.rds")
+load("/Users/Trent/Projects/OttawaSchedules/data_raw/skating_20161217.rds")
