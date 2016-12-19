@@ -53,12 +53,12 @@ sessions <- rbind(sessions,
                            ,'Women Only', 'Women Only', 'Gender Restricted'
                            ,'Women Only Family', 'Women Only Family', 'Gender Restricted'
                            
-                           ,'Hot Tub / Sauna Only', 'Hot Tub/Sauna', 'Sauna'
+                           ,'Hot Tub/Sauna', 'Hot Tub/Sauna', 'Sauna'
                            
                            ,'Swim for Persons with a Disability', 'With Disability', 'With Disability'
                            ,'Preschool Swim', 'Preschool', 'Age Restricted'), ncol=3, byrow = T))
 
-colnames(sessions) <- c('Activity', 'shortname', 'SessionGroup')
+colnames(sessions) <- c('Activity', 'ShortName', 'SessionGroup')
 
 sessions <- as.data.frame(sessions, stringsAsFactors = F)
 
@@ -77,21 +77,21 @@ facilities <- matrix(c(  'Bell Centennial Arena', 'West End', '45.324412', '-75.
                    , 'Canterbury Recreation Complex', 'Central', '45.390558', '-75.628903'
                    , 'Champagne Fitness Centre', 'Central', '45.430659', '-75.686719'
                    , 'Deborah Anne Kirwan Pool', 'South', '45.367799', '-75.656587'
-                   , 'Dempsey Community Centre', '', '', ''
+                   , 'Dempsey Community Centre', 'Central', '45.401927', '-75.627773'
                    , 'Earl Armstrong Arena', 'East', '45.43588', '-75.602864'
-                   , 'Eva James Memorial Community Centre', '', '', ''
+                   , 'Eva James Memorial Community Centre', 'West', '45.290656', '-75.857888'
                    , 'François Dupuis Recreation Centre', 'East', '45.457012', '-75.449182'
                    , 'Fred Barrett Arena', 'South', '45.331162', '-75.598078'
                    , 'Goulbourn Recreation Complex', 'West', '45.263237', '-75.907526'
-                   , 'Greenboro Community Centre', '', '', ''
+                   , 'Greenboro Community Centre', 'South', '45.363424', '-75.635499'
                    , 'Hintonburg Community Centre', '', '', ''
                    , 'Howard Darwin Centennial Arena', 'West End', '45.341963', '-75.72629'
-                   , 'Hunt Club-Riverside Park Community Centre', '', '', ''
+                   , 'Hunt Club-Riverside Park Community Centre', 'South', '45.351833', '-75.672689'
                    , 'J.A. Dulude Arena', 'West End', '45.373757', '-75.743907'
                    , 'Jack Charron Arena', 'West', '45.293619', '-75.883852'
                    , 'Jack Purcell Community Centre', 'Central', '45.415769', '-75.689533'
                    , 'Jim Durrell Recreation Centre', 'Central', '45.372846', '-75.6597'
-                   , 'John G. Mlacak Community Centre', 'West', '45.320822', '-75.897182'
+                   , 'John G Mlacak Community Centre', 'West', '45.320822', '-75.897182'
                    , 'Johnny Leroux Stittsville Community Arena', 'West', '45.260748', '-75.925043'
                    , 'Kanata Leisure Centre and Wave Pool', 'West', '45.311241', '-75.898782'
                    , 'Kanata Recreation Complex', 'West', '45.295047', '-75.903432'
@@ -102,14 +102,14 @@ facilities <- matrix(c(  'Bell Centennial Arena', 'West End', '45.324412', '-75.
                    , 'Minto Recreation Complex - Barrhaven', 'South', '45.253397', '-75.736022'
                    , 'Navan Memorial Centre', 'East', '45.421381', '-75.421326'
                    , 'Nepean Sportsplex', 'West End', '45.326912', '-75.746002'
-                   , 'Overbrook Community Centre', '', '', ''
+                   , 'Overbrook Community Centre', 'Central', '45.425415', '-75.656782'
                    , 'Pinecrest Recreation Complex', 'West End', '45.348021', '-75.773401'
                    , 'Plant Recreation Centre', 'Central', '45.40799', '-75.714452'
                    , 'R.J. Kennedy Arena', 'East', '45.514531', '-75.402976'
                    , 'Ray Friel Recreation Complex', 'East', '45.471382', '-75.49173'
                    , 'Richcraft Recreation Complex-Kanata', 'West', '45.344475', '-75.93036'
                    , 'Richmond Arena', 'South', '45.195657', '-75.837795'
-                   , 'Rideauview Community Centre', '', '', ''
+                   , 'Rideauview Community Centre', 'South', '45.277477', '-75.687125'
                    , 'Sandy Hill Arena', 'Central', '45.419286', '-75.673804'
                    , 'Sawmill Creek Community Centre and Pool', 'South', '45.350423', '-75.636775'
                    , 'Splash Wave Pool', 'East', '45.437087', '-75.600821'

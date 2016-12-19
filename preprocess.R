@@ -31,7 +31,7 @@ get_city_url <- function(p_activity = 'Skating',
 
     activities_url
 }
-#     get_url(p_page=2)
+#     get_city_url(p_page=2)
 
 
 retrieve_data <- function(p_activity = 'Skating', p_test = TRUE) {
@@ -55,7 +55,7 @@ retrieve_data <- function(p_activity = 'Skating', p_test = TRUE) {
         #   Grab node_url to enable linking to the city's actual Facility/Activity page
         if(length(activities) > 0) {
             result_page <- cbind(activities[[1]], node_url=xpathSApply(doc, '//td[@class="views-field views-field-field-diss-repeating"]//a/@href'))
-            result_page[,1] <- xpathSApply(doc, '//td[@class="views-field views-field-field-diss-facility"]//a/text()', xmlValue)
+            result_page[,1] <- trim(xpathSApply(doc, '//td[@class="views-field views-field-field-diss-facility"]//a/text()', xmlValue))
         } else {
             break
         }
@@ -67,8 +67,6 @@ retrieve_data <- function(p_activity = 'Skating', p_test = TRUE) {
         page <- page + 1
         
         if(p_test & page > 2) break
-
-if(page > 12) break
     }
 
     names(all_results) <- c('Facility', 'Activity', 'Date', 'Time', 'Details', 'node_url')
@@ -79,12 +77,8 @@ if(page > 12) break
         saveRDS(object = all_results, file = paste0(folder_raw, p_activity, '_', gsub('-', '', ymd(Sys.Date())), '.rds'))
     }
 }
-
-#   retrieve_data(p_activity='Skating', p_test=T)
-#   retrieve_data(p_activity='Skating', p_test=F)
-
-
-#  data.frame(id, location, day, start_date, end_date, starttime, endtime, session_type, comments, stringsAsFactors = FALSE)
+#   retrieve_data(p_activity='Skating', p_test=FALSE)
+#   retrieve_data(p_activity='Swimming', p_test=FALSE)
 
 
 #---------------------------
@@ -121,7 +115,7 @@ format_data <- function(p_activity='Skating') {
     
     data <- merge(data, sessions, by = "Activity", all.x = TRUE)
     
-    data$SessionType <- data$shortname
+    data$SessionType <- data$ShortName
 
     
     #----------------------------------------------------
@@ -129,13 +123,17 @@ format_data <- function(p_activity='Skating') {
     #----------------------------------------------------
     data <- merge(data, unique(facilities), by="Facility", all.x = TRUE)
 
-    data
+    data[,.(Date, StartTime, EndTime, Activity, ShortName, Facility, Locale, Longitude, Latitude, SessionGroup, SessionType)]
 }
 #  format_data()
 
+write_tableau_data <- function(p_activity='Skating') {
 
+    write.table(x = format_data(p_activity), file = paste0(folder_clean, p_activity, '.csv'), sep = ',', row.names = FALSE)
+}
 
-
+#   write_tableau_data('Skating')
+#   write_tableau_data('Swimming')
 
 
 
