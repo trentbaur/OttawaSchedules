@@ -66,7 +66,7 @@ retrieve_data <- function(p_activity = 'Skating', p_test = TRUE) {
         #     Move to the next set of results
         page <- page + 1
         
-        if(p_test & page > 2) break
+        if(p_test & page > 4) break
     }
 
     names(all_results) <- c('Facility', 'Activity', 'Date', 'Time', 'Details', 'node_url')
@@ -101,11 +101,11 @@ format_data <- function(p_activity='Skating') {
     #     Append current year to Date...
     data$Date <- as.Date(paste0(data$Date, ', ', format(Sys.Date(), '%Y')), format = '%A, %B %d, %Y')
     #     ...then add 1 year for any dates in the past
-    data[data$Date < Sys.Date(),]$Date <- data[data$Date < Sys.Date(),]$Date + years(1)
+    data[data$Date < Sys.Date(),]$Date <- data[data$Date < Sys.Date(), ]$Date + years(1)
     
     data <- cbind(data, trim(str_split(data$Time, '-', simplify = TRUE)))
     
-    setnames(data, old=c('V1', 'V2'), new=c('StartTime', 'EndTime'))
+    setnames(data, old = c('V1', 'V2'), new=c('StartTime', 'EndTime'))
     
     
     #----------------------------------------------------------------------------------
@@ -121,9 +121,9 @@ format_data <- function(p_activity='Skating') {
     #----------------------------------------------------
     #     Join to Arenas lookup to retrieve Locale
     #----------------------------------------------------
-    data <- merge(data, unique(facilities), by="Facility", all.x = TRUE)
+    data <- merge(data, facilities, by = "Facility", all.x = TRUE)
 
-    data[,.(Date, StartTime, EndTime, Activity, ShortName, Facility, Locale, Longitude, Latitude, SessionGroup, SessionType)]
+    data[, .(Date, StartTime, EndTime, Activity, ShortName, Facility, Locale, Longitude, Latitude, SessionGroup, SessionType)]
 }
 #  format_data()
 
