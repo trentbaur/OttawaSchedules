@@ -4,7 +4,6 @@ library(lubridate)
 library(stringr)
 library(RCurl)
 library(XML)
-library(data.table)
 
 activity_group <- as.data.frame(
                   matrix(c('Skating', '593',
@@ -123,7 +122,7 @@ format_data <- function(p_activity='Skating') {
     #----------------------------------------------------
     data <- merge(data, facilities, by = "Facility", all.x = TRUE)
 
-    data[, .(Date, StartTime, EndTime, Activity, ShortName, Facility, Locale, Longitude, Latitude, SessionGroup, SessionType)]
+    data[, .(Date, StartTime, EndTime, ActivityID, FacilityID)]
 }
 #  format_data()
 
@@ -131,9 +130,15 @@ write_tableau_data <- function(p_activity='Skating') {
 
     write.table(x = format_data(p_activity), file = paste0(folder_clean, p_activity, '.csv'), sep = ',', row.names = FALSE)
 }
-
 #   write_tableau_data('Skating')
 #   write_tableau_data('Swimming')
+
+
+write_lookup_tables <- function() {
+    write.csv(x = sessions, file = paste0(folder_clean, 'sessions.csv'))
+    write.csv(x = facilities, file = paste0(folder_clean, 'facilities.csv'))
+}
+
 
 
 

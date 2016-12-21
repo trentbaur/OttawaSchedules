@@ -1,0 +1,27 @@
+"","Activity","ShortName","SessionGroup","ActivityID"
+"1","Skating 50+","50+","Skating",1
+"2","Adult Skating","Adult","Skating",2
+"3","Family Skating","Family","Skating",3
+"4","Public Skating","Public","Skating",4
+"5","Unsupervised Skate","Unsupervised","Skating",5
+"6","Pick-up Hockey - Adults 18+","Pickup 18+","Hockey",6
+"7","Pick-up Hockey - Adults 35+","Pickup 35+","Hockey",7
+"8","Pick-up Hockey - Adults 50+","Pickup 50+","Hockey",8
+"9","Shinny Hockey - Child","Shinny - Children","Shinny",9
+"10","Shinny Hockey - Youth (13-17 yrs)","Shinny - Youth","Shinny",10
+"11","Figure Skating","Figure","Specialized",11
+"12","Speed Skating","Speed","Specialized",12
+"13","Lane Swim","Lane","Lane",13
+"14","50m Lane Swim","50m Lane","Lane",14
+"15","Family Swim","Family","General",15
+"16","Adult Swim","Adult","General",16
+"17","Public Swim","Public","General",17
+"18","Wave Swim","Wave","General",18
+"19","50+ Vitality","50+ Vitality","Age Restricted",19
+"20","50+ Swim","50+","Age Restricted",20
+"21","Teen Swim","Teen","Age Restricted",21
+"22","Women Only","Women Only","Gender Restricted",22
+"23","Women Only Family","Women Only Family","Gender Restricted",23
+"24","Hot Tub/Sauna","Hot Tub/Sauna","Sauna",24
+"25","Swim for Persons with a Disability","With Disability","With Disability",25
+"26","Preschool Swim","Preschool","Age Restricted",26

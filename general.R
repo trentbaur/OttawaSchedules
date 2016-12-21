@@ -1,3 +1,5 @@
+library(data.table)
+
 folder_clean <- 'data_clean/'
 folder_raw <- 'data_raw/'
 
@@ -61,7 +63,7 @@ sessions <- rbind(sessions,
 colnames(sessions) <- c('Activity', 'ShortName', 'SessionGroup')
 
 sessions <- as.data.frame(sessions, stringsAsFactors = F)
-
+sessions$ActivityID <- seq.int(nrow(sessions))
 
 
 #---------------------------------
@@ -73,6 +75,7 @@ facilities <- matrix(c(  'Bell Centennial Arena', 'West End', '45.324412', '-75.
                    , 'Bernard-Grandmaître Arena', 'East', '45.432813', '-75.655395'
                    , 'Blackburn Arena', 'East', '45.43', '-75.563149'
                    , 'Bob MacQuarrie Recreation Complex-Orléans', 'East', '45.466459', '-75.545228'
+                   , 'Bob MacQuarrie Recreation Complex - Orléans', 'East', '45.466459', '-75.545228'
                    , 'Brewer Pool and Arena', 'Central', '45.389097', '-75.691057'
                    , 'Canterbury Recreation Complex', 'Central', '45.390558', '-75.628903'
                    , 'Champagne Fitness Centre', 'Central', '45.430659', '-75.686719'
@@ -122,5 +125,6 @@ facilities <- matrix(c(  'Bell Centennial Arena', 'West End', '45.324412', '-75.
 colnames(facilities) <- c('Facility', 'Locale', 'Latitude', 'Longitude')
 
 facilities <- as.data.table(facilities, stringsAsFactors = F)
+facilities$FacilityID <- seq.int(nrow(facilities))
 
 
