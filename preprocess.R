@@ -54,6 +54,11 @@ retrieve_data <- function(p_activity = 'Skating', p_test = TRUE) {
         #   Grab node_url to enable linking to the city's actual Facility/Activity page
         if(length(activities) > 0) {
             result_page <- cbind(activities[[1]], node_url=xpathSApply(doc, '//td[@class="views-field views-field-field-diss-repeating"]//a/@href'))
+            
+            #   Exclude any empty row. This is caused by a "one time event" that has no other column data
+            #   and causes an error when trying to replace the arena name
+            result_page <- result_page[result_page$node_url != '/2/en/node/null',]
+            
             result_page[,1] <- trim(xpathSApply(doc, '//td[@class="views-field views-field-field-diss-facility"]//a/text()', xmlValue))
         } else {
             break
