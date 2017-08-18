@@ -107,7 +107,7 @@ format_data <- function(p_activity='Skating') {
     #     ...then add 1 year for any dates in the past
     data[data$Date < Sys.Date(),]$Date <- data[data$Date < Sys.Date(), ]$Date + years(1)
     
-    data <- cbind(data, trim(str_split(data$Time, '-', simplify = TRUE)))
+    data <- cbind(data, trim(str_split(toupper(data$Time), '-', simplify = TRUE)))
     
     setnames(data, old = c('V1', 'V2'), new=c('StartTime', 'EndTime'))
     
