@@ -80,9 +80,11 @@ retrieve_data <- function(p_activity = 'Skating', p_test = TRUE) {
     } else {
         saveRDS(object = all_results, file = paste0(folder_raw, p_activity, '_', gsub('-', '', ymd(Sys.Date())), '.rds'))
     }
+    
+    all_results
 }
-#   retrieve_data(p_activity='Skating', p_test=FALSE)
-#   retrieve_data(p_activity='Swimming', p_test=FALSE)
+#   skating = retrieve_data(p_activity='Skating', p_test=FALSE)
+#   swimming = retrieve_data(p_activity='Swimming', p_test=FALSE)
 
 
 #---------------------------
